@@ -5,3 +5,5 @@ The RandomisedCode file contains simulation code for 7 different analysis models
 (ii) basket-specific criteria.
 
 Code is also provided for investigations into the number of simulation iterations, calibration of model parameters and misalignment between current and historic data. 
+
+Code is based on that published by Liu, Roychoudhury and Wei for their work “Bayesian randomized basket trial design: a case study from the ultra-rare invasive mold infections” (2026).
