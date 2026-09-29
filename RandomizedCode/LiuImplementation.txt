@@ -1,0 +1,14 @@
+model{
+ mue ~ dnorm(MU,(1/1))
+ sigmae ~ dnorm(0,1/(zeta^2))I(0.0001,)
+ 
+ for(k in 1:K){
+ delta[k] ~ dcat(pi[k,1:2])
+ Theta[1,k] ~ dnorm(mue,1/(sigmae^2))
+ Theta[2,k] ~ dnorm(nexmu[k],1/nexsigma[k])
+ theta[k] <- Theta[delta[k],k]
+ y[k] ~ dbinom(p[k],n[k])
+ p[k] <- exp(theta[k])/(1+exp(theta[k]))
+ }
+ 
+}

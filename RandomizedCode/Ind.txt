@@ -1,0 +1,16 @@
+model {
+
+  for (i in 1:Nobs) {
+    y[i] ~ dbern(p[i])
+    logit(p[i]) <- alpha[Basket[i]] + T[i] * theta[Basket[i]]
+  }
+
+  for (k in 1:K) {
+
+    p0[k] ~ dbeta(1, 1)
+    alpha[k] <- logit(p0[k])
+    theta[k] ~ dnorm(m[k], 1/nu[k]^2)  # NEX component
+  }
+  
+
+}

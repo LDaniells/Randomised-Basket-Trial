@@ -1,0 +1,22 @@
+model {
+
+  eta ~ dnorm(m.eta, 1/nu.eta^2)
+  zeta ~ dnorm(0, 1/nu.zeta^2) T(0.0001,)
+
+  for (i in 1:Nobs) {
+    y[i] ~ dbern(p[i])
+    logit(p[i]) <- alpha[Basket[i]] + T[i]*theta[Basket[i]]
+  }
+
+  for (k in 1:K) {
+
+    p0[k] ~ dbeta(a + power*yh[k], b + power*(nh[k]-yh[k]))
+    alpha[k] <- logit(p0[k])
+
+    E[1,k] ~ dnorm(eta, 1/zeta^2)
+    E[2,k] ~ dnorm(m.nex[k], 1/nu.nex[k]^2)
+
+    delta[k] ~ dcat(pi[k,1:2])
+    theta[k] <- E[delta[k],k]
+  }
+}
